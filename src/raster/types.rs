@@ -23,7 +23,7 @@ use std::fmt::{Debug, Display, Formatter};
 /// );
 /// ```
 #[derive(Clone, Copy, Eq, PartialEq, Ord, PartialOrd)]
-#[repr(u32)]
+#[repr(i32)]
 pub enum GdalDataType {
     /// Unknown or unspecified type
     Unknown = GDALDataType::GDT_Unknown,
@@ -260,10 +260,10 @@ impl Display for GdalDataType {
 /// let gdt: GdalDataType = 3.try_into().unwrap();
 /// assert_eq!(gdt.name(), "Int16");
 /// ```
-impl TryFrom<u32> for GdalDataType {
+impl TryFrom<i32> for GdalDataType {
     type Error = GdalError;
 
-    fn try_from(value: u32) -> std::result::Result<Self, Self::Error> {
+    fn try_from(value: i32) -> std::result::Result<Self, Self::Error> {
         use GDALDataType::*;
         #[allow(non_upper_case_globals)]
         match value {

@@ -1,3 +1,13 @@
+[env]
+DEP_GDAL_VERSION_NUMBER="3,080,100"
+GDAL_VERSION="3.8.1"
+GDAL_STATIC="C:\\Program Files\\GDAL\\lib\\gdal_i.lib"
+GDAL_LIB_DIR="C:\\Program Files\\GDAL\\lib"
+GDAL_HOME="C:\\Program Files\\GDAL"
+GDAL_INCLUDE="C:\\Program Files\\GDAL\\include"
+LIBCLANG_PATH="C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\Llvm\\x64\\bin\\libclang.dll"
+
+
 [alias]
 # Run doctests, displaying compiler output.
 # Due to this issue:

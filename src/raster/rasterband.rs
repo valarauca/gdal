@@ -107,7 +107,7 @@ impl Dataset {
 /// # }
 /// ```
 #[derive(Debug, Copy, Clone, PartialEq)]
-#[repr(u32)]
+#[repr(i32)]
 pub enum ResampleAlg {
     /// Nearest neighbour
     NearestNeighbour = GDALRIOResampleAlg::GRIORA_NearestNeighbour,
@@ -522,7 +522,7 @@ impl<'a> RasterBand<'a> {
     /// # }
     /// ```
     pub fn read_block<T: Copy + GdalType>(&self, block_index: (usize, usize)) -> Result<Buffer<T>> {
-        if T::gdal_ordinal() != self.band_type() as u32 {
+        if T::gdal_ordinal() != self.band_type() as i32 {
             return Err(GdalError::BadArgument(
                 "result array type must match band data type".to_string(),
             ));
@@ -603,7 +603,7 @@ impl<'a> RasterBand<'a> {
         block_index: (usize, usize),
         block: &mut Buffer<T>,
     ) -> Result<()> {
-        if T::gdal_ordinal() != self.band_type() as u32 {
+        if T::gdal_ordinal() != self.band_type() as i32 {
             return Err(GdalError::BadArgument(
                 "array type must match band data type".to_string(),
             ));

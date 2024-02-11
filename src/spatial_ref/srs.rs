@@ -468,7 +468,7 @@ impl SpatialRef {
     /// See: [`OSRGetSemiMajor`](https://gdal.org/api/ogr_srs_api.html#_CPPv415OSRGetSemiMajor20OGRSpatialReferenceHP6OGRErr)
     pub fn semi_major(&self) -> Result<f64> {
         let mut err_code = OGRErr::OGRERR_NONE;
-        let a = unsafe { gdal_sys::OSRGetSemiMajor(self.0, &mut err_code as *mut u32) };
+        let a = unsafe { gdal_sys::OSRGetSemiMajor(self.0, &mut err_code as *mut i32) };
         if err_code != OGRErr::OGRERR_NONE {
             return Err(GdalError::OgrError {
                 err: err_code,
@@ -485,7 +485,7 @@ impl SpatialRef {
     /// See: [`OSRGetSemiMinor`](https://gdal.org/api/ogr_srs_api.html#_CPPv415OSRGetSemiMinor20OGRSpatialReferenceHP6OGRErr)
     pub fn semi_minor(&self) -> Result<f64> {
         let mut err_code = OGRErr::OGRERR_NONE;
-        let b = unsafe { gdal_sys::OSRGetSemiMinor(self.0, &mut err_code as *mut u32) };
+        let b = unsafe { gdal_sys::OSRGetSemiMinor(self.0, &mut err_code as *mut i32) };
         if err_code != OGRErr::OGRERR_NONE {
             return Err(GdalError::OgrError {
                 err: err_code,
@@ -524,7 +524,7 @@ impl SpatialRef {
         let c_name = CString::new(name)?;
         let mut err_code = OGRErr::OGRERR_NONE;
         let p = unsafe {
-            gdal_sys::OSRGetProjParm(self.0, c_name.as_ptr(), 0.0, &mut err_code as *mut u32)
+            gdal_sys::OSRGetProjParm(self.0, c_name.as_ptr(), 0.0, &mut err_code as *mut i32)
         };
         if err_code != OGRErr::OGRERR_NONE {
             match err_code {
@@ -620,7 +620,7 @@ pub struct AreaOfUse {
 ///
 /// See: [`OSRGetAxisMappingStrategy`](https://gdal.org/api/ogrspatialref.html#_CPPv4NK19OGRSpatialReference22GetAxisMappingStrategyEv)
 #[derive(Debug, Clone, Copy, Eq, PartialEq, Ord, PartialOrd)]
-#[repr(u32)]
+#[repr(i32)]
 pub enum AxisMappingStrategy {
     /// For geographic CRS with lat/long order, the data will still be long/lat ordered.
     /// Similarly for a projected CRS with northing/easting order, the data will still
@@ -639,10 +639,10 @@ impl AxisMappingStrategy {
     }
 }
 
-impl TryFrom<u32> for AxisMappingStrategy {
+impl TryFrom<i32> for AxisMappingStrategy {
     type Error = GdalError;
 
-    fn try_from(value: u32) -> std::result::Result<Self, Self::Error> {
+    fn try_from(value: i32) -> std::result::Result<Self, Self::Error> {
         use OSRAxisMappingStrategy::*;
 
         match value {

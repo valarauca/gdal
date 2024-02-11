@@ -206,7 +206,7 @@ impl Driver {
                 size_x,
                 size_y,
                 bands,
-                data_type as u32,
+                data_type as i32,
                 options.as_ptr(),
             )
         };
